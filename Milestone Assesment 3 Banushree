@@ -1,0 +1,43 @@
+package demoProject.Sample;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class Indiabook {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver","C:\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.indiabookstore.net/");
+		driver.manage().window().maximize();
+		driver.findElement(By.id("searchBox")).click();
+		driver.findElement(By.id("searchBox")).sendKeys("selenium");
+		driver.findElement(By.id("searchBox")).sendKeys(Keys.ENTER);
+		driver.findElement(By.xpath("//img[@title='selenium testing tools cookbook | By: Roy De Kleijn']")).click();
+		String str = driver.findElement(By.xpath("//div[@class='isbnContainer']")).getText();
+		System.out.println("str is" +str);
+		driver.findElement(By.xpath("//*[@id='bookInfoWindow']/div/div/div[2]/div[2]/div[2]/div[3]/a")).click();
+		String winHandleBefore1 = driver.getWindowHandle();
+		for(String windowHandle : driver.getWindowHandles()) {
+			driver.switchTo().window(windowHandle);
+		}
+		String rate = driver.findElement(By.id("price")).getText();
+		System.out.println(rate);
+		String stock = driver.findElement(By.id("availability")).getText();
+		System.out.println(stock);
+		if(stock.contains("left")) {
+			System.out.println("Available");
+		}
+		System.out.println(stock);
+		String str1= driver.findElement(By.xpath("//@id=\"detailBullets_feature_div\"]/ul/li[5]/span/span[2]")).getText();
+		System.out.println("ISBN in amazon website is" +str1);
+		
+		
+	}
+}
